@@ -25,3 +25,8 @@ SELECT name, p.id as product_id, title, cost, MANUFACTURE_DATE, MANUFACTURER_ID
 FROM MANUFACTURER m
          INNER JOIN PRODUCT p on m.ID = p.MANUFACTURER_ID
 WHERE m.id = 3;
+
+SELECT p.id, title, m.id as manufacturer_id, m.NAME as manufacturer_name, COST, MANUFACTURE_DATE
+FROM PRODUCT p
+         INNER JOIN MANUFACTURER M on p.MANUFACTURER_ID = M.ID
+where p.id = 40;
