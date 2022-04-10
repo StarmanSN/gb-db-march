@@ -1,11 +1,11 @@
-package ru.gb.dao;
+package ru.gb.dao.manufacturer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import ru.gb.dao.manufacturer.ManufacturerDao;
 import ru.gb.entity.Manufacturer;
 import ru.gb.entity.Product;
 
@@ -55,6 +55,11 @@ public class NamedJdbcTemplateManufacturerDao implements ManufacturerDao {
     @Override
     public void update(Manufacturer manufacturer) {
 
+    }
+
+    @Override
+    public Manufacturer save(Manufacturer manufacturer) {
+        return null;
     }
 
     @Override

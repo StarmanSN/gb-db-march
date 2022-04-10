@@ -1,34 +1,29 @@
-package ru.gb.dao;
+package ru.gb.dao.manufacturer;
 
+import lombok.RequiredArgsConstructor;
+import ru.gb.dao.manufacturer.ManufacturerDao;
 import ru.gb.entity.Manufacturer;
 
-import java.sql.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OLdJdbcManufacturerDao implements ManufacturerDao {
+//@Component
+@RequiredArgsConstructor
+public class SpringJdbcManufacturerDao implements ManufacturerDao {
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop", "geek", "geek");
-    }
-
-    private void closeConnection(Connection connection) {
-        if (connection == null) {
-            return;
-        }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    private final DataSource dataSource;
 
     @Override
     public Iterable<Manufacturer> findAll() {
         Set<Manufacturer> manufacturers = new HashSet<>();
         Connection connection = null;
         try {
-            connection = getConnection();
+            connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement("select * from manufacturer");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -42,7 +37,11 @@ public class OLdJdbcManufacturerDao implements ManufacturerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeConnection(connection);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return manufacturers;
     }
@@ -65,6 +64,11 @@ public class OLdJdbcManufacturerDao implements ManufacturerDao {
     @Override
     public void update(Manufacturer manufacturer) {
 
+    }
+
+    @Override
+    public Manufacturer save(Manufacturer manufacturer) {
+        return null;
     }
 
     @Override

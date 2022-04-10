@@ -1,16 +1,16 @@
-package ru.gb.dao;
+package ru.gb.dao.manufacturer;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gb.dao.manufacturer.ManufacturerDao;
 import ru.gb.entity.Manufacturer;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class HibernateManufacturerDao implements ManufacturerDao {
 
@@ -47,7 +47,17 @@ public class HibernateManufacturerDao implements ManufacturerDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    @Transactional
+    public Manufacturer save(Manufacturer manufacturer) {
+        sessionFactory.getCurrentSession().saveOrUpdate(manufacturer);
+        return manufacturer;
+    }
 
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        final Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setId(id);
+        sessionFactory.getCurrentSession().delete(manufacturer);
     }
 }

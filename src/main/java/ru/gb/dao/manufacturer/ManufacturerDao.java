@@ -1,4 +1,4 @@
-package ru.gb.dao;
+package ru.gb.dao.manufacturer;
 
 import ru.gb.entity.Manufacturer;
 
@@ -13,6 +13,8 @@ public interface ManufacturerDao {
     void insert(Manufacturer manufacturer);
 
     void update(Manufacturer manufacturer);
+
+    Manufacturer save(Manufacturer manufacturer);
 
     void deleteById(Long id);
 
