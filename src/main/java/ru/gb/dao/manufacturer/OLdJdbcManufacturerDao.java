@@ -1,12 +1,13 @@
-package ru.gb.dao;
+package ru.gb.dao.manufacturer;
 
-import ru.gb.entity.Product;
+import ru.gb.dao.manufacturer.ManufacturerDao;
+import ru.gb.entity.Manufacturer;
 
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OldJdbcProductDao implements ProductDao {
+public class OLdJdbcManufacturerDao implements ManufacturerDao {
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop", "geek", "geek");
@@ -24,29 +25,19 @@ public class OldJdbcProductDao implements ProductDao {
     }
 
     @Override
-    public Product findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public String findTitleById(Long id) {
-        return null;
-    }
-
-    @Override
-    public Iterable<Product> findAll() {
-        Set<Product> products = new HashSet<>();
+    public Iterable<Manufacturer> findAll() {
+        Set<Manufacturer> manufacturers = new HashSet<>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement("select * from product");
+            PreparedStatement statement = connection.prepareStatement("select * from manufacturer");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                final Product product = Product.builder()
+                final Manufacturer manufacturer = Manufacturer.builder()
                         .id(resultSet.getLong("id"))
-                        .title(resultSet.getString("title"))
+                        .name(resultSet.getString("name"))
                         .build();
-                products.add(product);
+                manufacturers.add(manufacturer);
             }
             statement.close();
         } catch (SQLException e) {
@@ -54,17 +45,36 @@ public class OldJdbcProductDao implements ProductDao {
         } finally {
             closeConnection(connection);
         }
-        return products;
+        return manufacturers;
     }
 
+    @Override
+    public String findNameById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Manufacturer findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void insert(Manufacturer manufacturer) {
+
+    }
+
+    @Override
+    public void update(Manufacturer manufacturer) {
+
+    }
+
+    @Override
+    public Manufacturer save(Manufacturer manufacturer) {
+        return null;
+    }
 
     @Override
     public void deleteById(Long id) {
 
-    }
-
-    @Override
-    public Product saveOrUpdate(Product product) {
-        return null;
     }
 }

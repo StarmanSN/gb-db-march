@@ -1,8 +1,8 @@
-package ru.gb.dao;
+package ru.gb.dao.manufacturer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import ru.gb.dao.manufacturer.ManufacturerDao;
 import ru.gb.entity.Manufacturer;
 
 //@Component
@@ -34,6 +34,11 @@ public class JdbcTemplateManufacturerDao implements ManufacturerDao {
     @Override
     public void update(Manufacturer manufacturer) {
 
+    }
+
+    @Override
+    public Manufacturer save(Manufacturer manufacturer) {
+        return null;
     }
 
     @Override
