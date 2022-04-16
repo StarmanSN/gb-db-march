@@ -21,6 +21,19 @@ CREATE TABLE PRODUCT
             REFERENCES MANUFACTURER (ID)
 );
 
+ALTER table product
+    add column MANUFACTURE_DATE DATE NOT NULL;
+
+ALTER TABLE PRODUCT
+    ADD COLUMN VERSION            INT NOT NULL DEFAULT 0,
+    ADD COLUMN CREATED_BY         VARCHAR(255),
+    ADD COLUMN CREATED_DATE       TIMESTAMP,
+    ADD COLUMN LAST_MODIFIED_BY   VARCHAR(255),
+    ADD COLUMN LAST_MODIFIED_DATE TIMESTAMP;
+
+ALTER TABLE PRODUCT
+    ADD COLUMN STATUS VARCHAR(30) NOT NULL DEFAULT 'ACTIVE';
+
 SELECT name, p.id as product_id, title, cost, MANUFACTURE_DATE, MANUFACTURER_ID
 FROM MANUFACTURER m
          INNER JOIN PRODUCT p on m.ID = p.MANUFACTURER_ID
@@ -37,7 +50,15 @@ where id = 12;
 
 select *
 from PRODUCT
-where id = 41;
+order by id desc
+limit 3;
+
+delete
+from PRODUCT
+where id = 45;
+
+select *
+from PRODUCT;
 
 create table cart
 (
@@ -60,4 +81,5 @@ create table cart_product
             references product (id)
 );
 
-select * from cart_product;
+select *
+from cart_product;
