@@ -11,7 +11,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @Entity
 @Table(name = "MANUFACTURER")
 @NamedQueries({
@@ -28,7 +27,7 @@ public class Manufacturer {
     @Column(name = "name")
     private String name;
 
-    @Transient
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Product> products;
 
     public boolean addProduct(Product product) {
@@ -36,5 +35,14 @@ public class Manufacturer {
             products = new HashSet<>();
         }
         return products.add(product);
+    }
+
+    @Override
+    public String toString() {
+        return "Manufacturer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", products=" + products +
+                '}';
     }
 }

@@ -1,20 +1,12 @@
 package ru.gb.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.gb.entity.Manufacturer;
 
-public interface ManufacturerDao {
+public interface ManufacturerDao extends JpaRepository<Manufacturer, Long> {
 
-    Iterable<Manufacturer> findAll();
+    Manufacturer findByNameLike (String name);
 
-    public String findNameById(Long id);
-
-    Manufacturer findById(Long id);
-
-    void insert(Manufacturer manufacturer);
-
-    void update(Manufacturer manufacturer);
-
-    void deleteById(Long id);
 
 
 }
